@@ -1,0 +1,45 @@
+To create a Graphviz-compatible diagram in DOT format for the described Appian process flow, we can represent each step as a node and use edges to show the flow between these nodes. Here's how you can structure it:
+
+```dot
+digraph AppianProcessFlow {
+    // Define node shapes
+    node [shape=box, style=rounded];
+
+    // Nodes
+    StartNode [label="Start Node"];
+    DisplayHomePage [label="Display Home Page"];
+    SignUp [label="Sign Up"];
+    AccountCheck [label="Account Existence Check"];
+    AccountExists [label="Account Exists?"];
+    DisplayError [label="Display Error Message"];
+    CreateAccount [label="Create Account"];
+    UserLogin [label="User Login"];
+    ValidateCredentials [label="Validate Credentials"];
+    CredentialsValid [label="Credentials Valid?"];
+    DisplayWelcomePage [label="Display Welcome Page"];
+    EndNode [label="End Node"];
+
+    // Edges
+    StartNode -> DisplayHomePage;
+    DisplayHomePage -> SignUp;
+    SignUp -> AccountCheck;
+    AccountCheck -> AccountExists;
+    
+    // Conditional flow for account existence
+    AccountExists -> DisplayError [label="Yes"];
+    AccountExists -> CreateAccount [label="No"];
+    
+    CreateAccount -> UserLogin;
+    UserLogin -> ValidateCredentials;
+    ValidateCredentials -> CredentialsValid;
+    
+    // Conditional flow for credential validation
+    CredentialsValid -> DisplayError [label="No"];
+    CredentialsValid -> DisplayWelcomePage [label="Yes"];
+    
+    DisplayWelcomePage -> EndNode;
+    DisplayError -> EndNode;
+}
+```
+
+This DOT format defines a directed graph with nodes representing each step of the process and edges showing the flow. Conditional flows are handled using labeled edges to indicate decision outcomes. You can visualize this graph using Graphviz tools to see the flowchart representation.

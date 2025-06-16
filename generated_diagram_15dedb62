@@ -1,0 +1,26 @@
+dot
+digraph ServiceNowFlow {
+    node [shape=rectangle];
+    Start [label="Start\n(Trigger Workflow)"];
+    HomePage [label="Display Home Page"];
+    SignUp [label="Sign Up\n(Provide Form)"];
+    AccountCheck [label="Account Already Exists Check"];
+    ErrorMessage [label="Display Error Message"];
+    CreateAccount [label="Create Account"];
+    UserLogin [label="User Login"];
+    CredentialsCheck [label="Valid Credentials Check"];
+    WelcomePage [label="Display Welcome Page"];
+    End [label="End"];
+
+    Start -> HomePage;
+    HomePage -> SignUp;
+    SignUp -> AccountCheck;
+    AccountCheck -> ErrorMessage [label="Yes"];
+    AccountCheck -> CreateAccount [label="No"];
+    ErrorMessage -> SignUp;
+    CreateAccount -> UserLogin;
+    UserLogin -> CredentialsCheck;
+    CredentialsCheck -> WelcomePage [label="Valid"];
+    CredentialsCheck -> UserLogin [label="Invalid"];
+    WelcomePage -> End;
+}

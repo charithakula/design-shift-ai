@@ -1,0 +1,41 @@
+Creating a Graphviz-compatible diagram in DOT format for the described Pega flow involves defining nodes and edges that represent the steps and transitions in the process. Below is the DOT representation of the flow diagram:
+
+```dot
+digraph PegaFlow {
+    rankdir=TB;
+    node [shape=rectangle, style=filled, color=lightgrey];
+
+    Start [label="Start the Process"];
+    HomePage [label="Display Home Page"];
+    SignUp [label="Sign Up"];
+    AccountCheck [label="Account Already Exists Check", shape=diamond, style=filled, color=lightblue];
+    ErrorExists [label="Display Error Message\n(Account Exists)"];
+    CreateAccount [label="Create Account"];
+    Login [label="User Login"];
+    CredentialsCheck [label="Valid Credentials Check", shape=diamond, style=filled, color=lightblue];
+    ErrorInvalid [label="Display Error Message\n(Invalid Credentials)"];
+    WelcomePage [label="Display Welcome Page"];
+    End [label="End the Process"];
+
+    Start -> HomePage;
+    HomePage -> SignUp [label="Sign Up"];
+    SignUp -> AccountCheck;
+    AccountCheck -> ErrorExists [label="Yes"];
+    AccountCheck -> CreateAccount [label="No"];
+    CreateAccount -> Login;
+    HomePage -> Login [label="Log In"];
+    Login -> CredentialsCheck;
+    CredentialsCheck -> ErrorInvalid [label="Invalid"];
+    CredentialsCheck -> WelcomePage [label="Valid"];
+    WelcomePage -> End;
+}
+
+```
+
+### Explanation:
+- **Nodes**: Represent different steps in the flow. Rectangles are used for regular steps, while diamonds represent decision points.
+- **Edges**: Arrows indicate the flow from one step to another, with labels to denote conditions (e.g., "Yes", "No", "Valid", "Invalid").
+- **Rank Direction**: The flow is set from top to bottom (`rankdir=TB`).
+- **Styles and Colors**: Nodes are styled to differentiate between regular steps and decision points, with light blue used for decision shapes.
+
+This DOT format can be used with Graphviz tools to generate a visual representation of the flow diagram.
